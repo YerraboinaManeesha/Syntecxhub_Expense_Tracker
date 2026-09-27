@@ -1,104 +1,240 @@
-# SpendWise — Personal Expense Tracker
+# 💰 SpendWise – Expense Tracker
 
-A polished personal expense tracker built with React and Vite, created for the **Syntecxhub Web Development Internship** expense-tracker assignment.
+## 📌 Overview
 
-## Overview
+**SpendWise** is a responsive **Expense Tracker web application** built with **React.js**. It helps users record, manage, search, filter, and track their everyday expenses through a clean and responsive interface.
 
-SpendWise lets a person log everyday expenses, see a running summary of their spending, and search or filter their history — all in the browser, with no backend. Data starts from a mock API and is then persisted in the browser's LocalStorage, so nothing is lost on refresh.
+This project was developed as **Project 1 – Expense Tracker** during my **Web Development Internship at Syntecxhub**.
 
-## Features
+## 🌐 Live Demo
 
-- **Dashboard summary** — total spent, this month's spend, highest expense, and transaction count, all calculated live from the current data.
-- **Add expense** — a validated form for title, amount, category, and date.
-- **Delete expense** — remove a single expense, with a confirmation prompt.
-- **Clear all** — wipe the whole list, with confirmation.
-- **Search** — filter by title or category as you type.
-- **Category filter** — narrow the list to one category, combinable with search.
-- **Loading, error, and empty states** — the interface is never left blank.
-- **Responsive layout** — works from desktop down to small mobile screens.
-- **Indian Rupee formatting** — amounts are formatted with `Intl.NumberFormat` (e.g. ₹2,450).
+🚀 **[View SpendWise Live Demo](https://spendwise-expense-tracker-tau.vercel.app/)**
 
-## Technologies used
+## 📂 GitHub Repository
 
-- React 18
-- Vite
-- JavaScript (JSX) — no TypeScript
-- HTML5 / CSS3
-- Browser LocalStorage
-- A static mock JSON API (`public/mock-expenses.json`)
+💻 **[View Source Code on GitHub](https://github.com/YerraboinaManeesha/Syntecxhub_Expense_Tracker)**
 
-## React hooks used
+## ✨ Features
 
-| Hook | Where | What it does |
-|---|---|---|
-| `useState` | `App.jsx`, `ExpenseForm.jsx`, `Header.jsx` | Holds the expense list, loading/status state, search text, selected category, the add-expense form fields and their validation errors, and the mobile menu's open/closed state. |
-| `useEffect` | `App.jsx` | One effect loads the starting expenses on mount — checking LocalStorage first, then falling back to fetching `/mock-expenses.json`. A second effect writes the expense list back to LocalStorage every time it changes. |
-| `useRef` | `ExpenseForm.jsx`, `App.jsx` | `ExpenseForm` holds a ref on the title input so it can be refocused automatically after an expense is added. `App` holds a ref on the form's section so the "Add Expense" nav link and empty-state button can scroll the person straight to it. |
-| `useMemo` | `App.jsx` | Recalculates the filtered expense list, total spent, this month's total, the highest expense, and the transaction count — only when the expenses, search text, or category filter actually change. |
-| `useCallback` | `App.jsx` | Memoizes the add, delete, clear-all, scroll-to-form, and navigation handlers that are passed down to `ExpenseForm`, `FilterBar`, `ExpenseList`, and `Header`, so those child components don't re-render on every unrelated state change. |
+* ➕ Add new expenses
+* 🗑️ Delete individual expenses
+* 🧹 Clear all expenses
+* 🔍 Search expenses by name or description
+* 🏷️ Filter expenses by category
+* 💰 Automatically calculate total spending
+* 📅 Track monthly expenses
+* 📊 Display highest expense
+* 🧾 Display total number of transactions
+* 💾 Store expense data using browser local storage
+* 🌐 Load initial expense data from a mock API
+* 📱 Fully responsive design
+* ⚡ Optimized React components using modern React Hooks
+* 🔔 Custom confirmation modal for delete and clear actions
 
-## Project structure
+## 🛠️ Technologies Used
 
-```
-Syntecxhub_Expense_Tracker/
+### Frontend
+
+* ⚛️ React.js
+* 🟨 JavaScript (ES6+)
+* 🎨 CSS3
+* 🌐 HTML5
+* ⚡ Vite
+
+### Data & Storage
+
+* 🔗 Mock JSON API
+* 💾 Browser Local Storage
+
+### Development Tools
+
+* 🧑‍💻 Visual Studio Code
+* 📦 npm
+* 🔧 Git
+* 🐙 GitHub
+* ▲ Vercel
+
+## ⚛️ React Concepts Implemented
+
+This project demonstrates the practical use of React Hooks:
+
+### `useState`
+
+Used to manage:
+
+* Expense records
+* Form inputs
+* Search text
+* Category filters
+* Loading and status states
+* Confirmation modal state
+
+### `useEffect`
+
+Used to:
+
+* Fetch initial expense data from the mock API
+* Load previously stored expenses from Local Storage
+* Synchronize expense data with Local Storage
+
+### `useRef`
+
+Used for:
+
+* Form field focus management
+* Scrolling to the expense form
+
+### `useMemo`
+
+Used to optimize calculated and filtered data such as:
+
+* Filtered expenses
+* Total spending
+* Monthly spending
+* Highest expense
+* Transaction count
+
+### `useCallback`
+
+Used to optimize callback functions such as:
+
+* Adding expenses
+* Deleting expenses
+* Clearing all expenses
+* Navigation
+* Scrolling to the form
+
+## 📁 Project Structure
+
+```text
+SpendWise/
 │
 ├── public/
 │   └── mock-expenses.json
 │
 ├── src/
 │   ├── components/
-│   │   ├── Header.jsx
-│   │   ├── SummaryCards.jsx
 │   │   ├── ExpenseForm.jsx
-│   │   ├── FilterBar.jsx
 │   │   ├── ExpenseList.jsx
-│   │   ├── ExpenseItem.jsx
-│   │   └── EmptyState.jsx
+│   │   ├── FilterBar.jsx
+│   │   ├── Header.jsx
+│   │   └── SummaryCards.jsx
 │   │
 │   ├── App.jsx
-│   ├── constants.js
-│   ├── main.jsx
-│   └── index.css
+│   ├── App.css
+│   └── main.jsx
 │
-├── .gitignore
+├── .github/
+│   └── workflows/
+│       └── deploy.yml
+│
 ├── index.html
 ├── package.json
+├── package-lock.json
 ├── vite.config.js
 └── README.md
 ```
 
-## How the mock API works
+## 🚀 Installation
 
-On first load (or whenever LocalStorage is empty), the app fetches `public/mock-expenses.json` with `fetch('/mock-expenses.json')` inside a `useEffect`. If the fetch fails, SpendWise shows a status message and continues with an empty list rather than leaving the screen blank.
+Follow these steps to run SpendWise locally.
 
-## LocalStorage
+### 1. Clone the repository
 
-Once expenses are loaded, every change to the list is written to LocalStorage under the key `spendwise_expenses`. On the next load, if that key already holds data, SpendWise uses it instead of re-fetching the mock API — so any expenses you've added or deleted survive a refresh.
+```bash
+git clone https://github.com/YerraboinaManeesha/Syntecxhub_Expense_Tracker.git
+```
 
-## Installation
+### 2. Navigate to the project directory
+
+```bash
+cd Syntecxhub_Expense_Tracker
+```
+
+### 3. Install dependencies
 
 ```bash
 npm install
 ```
 
-## Running the project
+### 4. Start the development server
 
 ```bash
 npm run dev
 ```
 
-Then open the local URL Vite prints (typically `http://localhost:5173`).
+The application will be available at the local Vite development URL shown in the terminal.
 
-To build for production:
+## 🏗️ Production Build
+
+To create a production-ready build:
 
 ```bash
 npm run build
 ```
 
-## Screenshots
+The optimized production files are generated inside the:
 
-_Add screenshots of the dashboard, add-expense form, and mobile view here._
+```text
+dist/
+```
 
-## Internship purpose
+directory.
 
-This project was built to fulfil the Syntecxhub Web Development Internship's expense-tracker assignment, demonstrating meaningful, non-artificial use of `useState`, `useEffect`, `useRef`, `useMemo`, and `useCallback` in a real, working application.
+## 🌐 Deployment
+
+SpendWise is deployed using **Vercel**.
+
+🚀 **Live Application:**
+https://spendwise-expense-tracker-tau.vercel.app/
+
+Every new change pushed to the connected GitHub repository can be deployed through the Vercel Git integration.
+
+## 📱 Responsive Design
+
+SpendWise is designed to work across different screen sizes, including:
+
+* 💻 Desktop
+* 💻 Laptop
+* 📱 Tablet
+* 📱 Mobile
+
+The layout adapts to different screen sizes while maintaining usability and readability.
+
+## 🎯 Project Objectives
+
+The main objectives of this project were to:
+
+* Build a responsive React application
+* Practice React Hooks
+* Manage form and application state
+* Work with mock API data
+* Implement Local Storage persistence
+* Optimize rendering using `useMemo` and `useCallback`
+* Implement DOM references using `useRef`
+* Create a clean and user-friendly interface
+* Deploy a React application to a live hosting platform
+
+## 🎓 Internship Details
+
+**Internship:** Web Development Internship
+**Organization:** Syntecxhub
+**Project:** Project 1 – Expense Tracker
+**Application:** SpendWise
+**Technology:** React.js
+
+## 🔗 Links
+
+* 🌐 **Live Demo:** https://spendwise-expense-tracker-tau.vercel.app/
+* 💻 **GitHub Repository:** https://github.com/YerraboinaManeesha/Syntecxhub_Expense_Tracker
+* 👩‍💻 **GitHub Profile:** https://github.com/YerraboinaManeesha
+
+## 👤 Author
+
+**Maneesha Yerraboina**
+
+MSc Computer Science Graduate | Web Development Intern
+
+---
+
+
