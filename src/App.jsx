@@ -1,4 +1,3 @@
-
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import Header from './components/Header'
 import SummaryCards from './components/SummaryCards'
@@ -50,7 +49,10 @@ function App() {
       }
 
       try {
-        const response = await fetch('/mock-expenses.json')
+        // BASE_URL makes the mock API work on GitHub Pages
+        const response = await fetch(
+          `${import.meta.env.BASE_URL}mock-expenses.json`
+        )
 
         if (!response.ok) {
           throw new Error('Could not load starter expenses.')
@@ -369,4 +371,3 @@ function App() {
 }
 
 export default App
-
